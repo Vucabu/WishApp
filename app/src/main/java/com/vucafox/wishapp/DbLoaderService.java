@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
-public class ForecastLoaderService extends Service {
+public class DbLoaderService extends Service {
 
     private MyBinder myBinder = new MyBinder();
 
@@ -20,8 +20,8 @@ public class ForecastLoaderService extends Service {
     }
 
     public class MyBinder extends Binder {
-        ForecastLoaderService getService() {
-            return ForecastLoaderService.this;
+        DbLoaderService getService() {
+            return DbLoaderService.this;
         }
     }
 }

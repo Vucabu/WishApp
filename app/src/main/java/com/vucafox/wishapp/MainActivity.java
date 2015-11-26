@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout relativeLayout;
     private DatabaseHelper myDbHelper;
 
+    private DbLoaderService dbLoaderService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         }
         String rowText = myDbHelper.getRandomRow();
         tv.setText(rowText);
+        dbLoaderService = new DbLoaderService();
+
     }
 
     @Override
