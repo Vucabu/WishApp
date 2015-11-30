@@ -5,9 +5,24 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
+import java.io.IOException;
+
 public class DbLoaderService extends Service {
 
     private MyBinder myBinder = new MyBinder();
+    private DatabaseHelper myDbHelper;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        myDbHelper = new DatabaseHelper(this);
+        try {
+            myDbHelper.createDataBase();
+        } catch (IOException ioe) {
+            throw new Error("Unable to create database");
+        }
+        myDbHelper.openDataBase();
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -19,8 +34,12 @@ public class DbLoaderService extends Service {
         return myBinder;
     }
 
+    public String getRandomPhrase() {
+        return myDbHelper.getRandomRow();
+    }
+
     public class MyBinder extends Binder {
-        DbLoaderService getService() {
+        public DbLoaderService getService() {
             return DbLoaderService.this;
         }
     }
